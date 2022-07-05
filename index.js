@@ -4,28 +4,28 @@ const addLeadInput = document.querySelector('#add-lead-input')
 const addLeadBtn = document.querySelector('#add-lead-btn')
 const leadList = document.querySelector('#lead-list')
 
-function resetInput() {
-  addLeadInput.value = ''
+function resetInput(input) {
+  input.value = ''
 }
 
-function renderList() {
-  leadList.innerHTML = leads.map(lead => (`<li>${lead}</li>`)).join('')
+function renderList(listElement, leads) {
+  listElement.innerHTML = leads.map(lead => (`<li>${lead}</li>`)).join('')
 }
 
-function addLead(value) {
-  if (value) {
-    leads.push(value)
-    resetInput()
-    renderList()
-  }
+function addLead(input, leadList, leads) {
+  if (!input.value) return
+
+  leads.push(input.value)
+  resetInput(input)
+  renderList(leadList, leads)
 }
 
-document.addEventListener('keydown', ({key}) => {
+document.addEventListener('keydown', ({ key }) => {
   if (key === 'Enter') {
-    addLead(addLeadInput.value)
+    addLead(addLeadInput, leadList, leads)
   }
 })
 
 addLeadBtn.addEventListener('click', () => {
-  addLead(addLeadInput.value)
+  addLead(addLeadInput, leadList, leads)
 })
