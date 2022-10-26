@@ -1,4 +1,4 @@
-const leads = []
+const leads = JSON.parse(localStorage.getItem('leads')) ?? []
 
 const addLeadInput = document.querySelector('#add-lead-input')
 const addLeadBtn = document.querySelector('#add-lead-btn')
@@ -16,6 +16,8 @@ function addLead(input, leadList, leads) {
   if (!input.value) return
 
   leads.push(input.value)
+  localStorage.setItem('leads', JSON.stringify(leads))
+
   resetInput(input)
   renderList(leadList, leads)
 }
@@ -29,3 +31,5 @@ document.addEventListener('keydown', ({ key }) => {
 addLeadBtn.addEventListener('click', () => {
   addLead(addLeadInput, leadList, leads)
 })
+
+renderList(leadList, leads)
