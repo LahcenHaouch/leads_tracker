@@ -5,8 +5,8 @@
 }
 
 :root {
-    --primary: #594545;
-    --secondary: #FFF8EA;
+    --primary: #FCEE0C;
+    --secondary: #000;
 }
 
 body {
@@ -27,5 +27,6 @@ button {
     cursor: pointer;
     padding: 4px;
     background-color: var(--secondary);
-    color: var(--primary)
+    color: var(--primary);
+    margin-left: 8px;
 }
