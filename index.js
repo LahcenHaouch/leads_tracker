@@ -11,13 +11,26 @@ function saveInLocalStorage(elements) {
   localStorage.setItem("leads", JSON.stringify(elements));
 }
 
-function renderList(leads) {
-  leadList.innerHTML = leads
-    .map(
-      (lead, index) =>
-        `<li>${lead.value} <button type="button" onclick="deleteLead('${lead.id}')">X</button></li>`
-    )
-    .join("");
+function renderList(elements) {
+  leadList.innerHTML = "";
+
+  elements.forEach(({ id, value }) => {
+    const leadElement = document.createElement("li");
+    leadElement.textContent = value;
+
+    const deleteLeadElement = document.createElement("button");
+    deleteLeadElement.setAttribute("type", "button");
+    deleteLeadElement.textContent = "X";
+
+    deleteLeadElement.addEventListener("click", () => {
+      leads = leads.filter(({ id: leadId }) => leadId !== id);
+      saveAndDisplay(leads);
+    });
+
+    leadElement.appendChild(deleteLeadElement);
+
+    leadList.appendChild(leadElement);
+  });
 }
 
 function saveAndDisplay(leads) {
