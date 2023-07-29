@@ -1,32 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Muli&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Muli&display=swap");
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 :root {
-    --primary: #FCEE0C;
-    --secondary: #000;
+  --primary: #fcee0c;
+  --secondary: #000;
 }
 
 body {
-    background-color: var(--primary);
-    color: var(--secondary);
-    padding: 16px;
-    font-family: 'Muli', sans-serif;
-    min-width: 400px;
+  background-color: var(--primary);
+  color: var(--secondary);
+  padding: 16px;
+  font-family: "Muli", sans-serif;
+  min-width: 400px;
 }
 
 ul {
-    margin: 0;
-    padding: 16px;
+  margin: 0;
+  padding: 16px;
 }
 
 button {
-    all: unset;
-    cursor: pointer;
-    padding: 4px;
-    background-color: var(--secondary);
-    color: var(--primary);
-    margin-left: 8px;
+  all: unset;
+  cursor: pointer;
+  padding: 4px;
+  background-color: var(--secondary);
+  color: var(--primary);
+  margin-left: 8px;
+  padding: 5px 10px;
+}
+
+input[type="text"] {
+  background-color: var(--primary);
+  border: 2px solid var(--secondary);
+  line-height: 20px;
 }

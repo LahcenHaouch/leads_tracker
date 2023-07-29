@@ -1,61 +1,62 @@
 // Fetch leads from localStorage or initialize it to an empty array
-let leads = JSON.parse(localStorage.getItem('leads')) ?? []
+let leads = JSON.parse(localStorage.getItem("leads")) ?? [];
 
-const addLeadInput = document.querySelector('#add-lead-input')
-const addLeadBtn = document.querySelector('#add-lead-btn')
-const clearLeadBtn = document.querySelector('#clear-lead-btn')
+const addLeadInput = document.querySelector("#add-lead-input");
+const addLeadBtn = document.querySelector("#add-lead-btn");
+const clearLeadBtn = document.querySelector("#clear-lead-btn");
 
-const leadList = document.querySelector('#lead-list')
+const leadList = document.querySelector("#lead-list");
 
 function saveInLocalStorage(elements) {
-  localStorage.setItem('leads', JSON.stringify(elements))
+  localStorage.setItem("leads", JSON.stringify(elements));
 }
 
 function renderList(leads) {
-  leadList.innerHTML = leads.map((lead, index) => (`<li>${lead} <button type="button" onclick="deleteLead(${index})">X</button></li>`)).join('')
+  leadList.innerHTML = leads
+    .map(
+      (lead, index) =>
+        `<li>${lead.value} <button type="button" onclick="deleteLead('${lead.id}')">X</button></li>`
+    )
+    .join("");
 }
 
 function saveAndDisplay(leads) {
-  saveInLocalStorage(leads)
-  renderList(leads)
+  saveInLocalStorage(leads);
+  renderList(leads);
 }
 
-function deleteLead(leadIndex) {
-  if (leadIndex === 0) {
-    leads = leads.slice(1)
-  } else {
-    console.log('first slice', leads.slice(0, leadIndex - 1))
-    console.log('second slice', leads.slice(leadIndex + 1))
+function deleteLead(id) {
+  leads = leads.filter(({ id: leadId }) => leadId !== id);
 
-    leads = [...leads.slice(0, leadIndex), ...leads.slice(leadIndex + 1)]
-  }
-  
-  saveAndDisplay(leads)
+  saveAndDisplay(leads);
 }
 
 function addLead(input) {
-  if (!input.value) return
+  if (!input.value) return;
 
-  leads.push(input.value)
-  input.value = ''
+  leads.push({
+    id: crypto.randomUUID(),
+    value: input.value,
+  });
+  input.value = "";
 
-  saveAndDisplay(leads)
+  saveAndDisplay(leads);
 }
 
-document.addEventListener('keydown', ({ key }) => {
-  if (key === 'Enter') {
-    addLead(addLeadInput)
+document.addEventListener("keydown", ({ key }) => {
+  if (key === "Enter") {
+    addLead(addLeadInput);
   }
-})
+});
 
-addLeadBtn.addEventListener('click', () => {
-  addLead(addLeadInput)
-})
+addLeadBtn.addEventListener("click", () => {
+  addLead(addLeadInput);
+});
 
-clearLeadBtn.addEventListener('click', () => {
-  leads = []
+clearLeadBtn.addEventListener("click", () => {
+  leads.length = 0;
 
-  saveAndDisplay(leads)
-})
+  saveAndDisplay(leads);
+});
 
-renderList(leads)
+renderList(leads);
